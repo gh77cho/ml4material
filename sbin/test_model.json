@@ -1,0 +1,9 @@
+{
+    "name" : "test.v0.0",
+    "model" : "linear-regression",
+    "hidden-layer" : [2, 2],
+    "learning-rate" : 0.001,
+    "initialize-function" : "xavier",
+    "activation-function" : "linear",
+    "test-ratio" : 0.0
+}

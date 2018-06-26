@@ -1,0 +1,9 @@
+{
+    "name" : "test.v0.0-fine_tune",
+    "model" : "linear-regression",
+    "hidden-layer" : [2, 2],
+    "learning-rate" : 0.01,
+    "initialize-function" : "xavier",
+    "activation-function" : "linear",
+    "test-ratio" : 0.1
+}

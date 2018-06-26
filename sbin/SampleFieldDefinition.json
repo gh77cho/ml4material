@@ -1,0 +1,4 @@
+{
+    "Input" : [ "Fe" ,"C" ,"Cr" ,"Mo" ,"Co" ,"Ni" ,"aus" ,"tem" ,"time" ,"AF"],
+    "Target" : [ "HRc" ,"UTS" ,"YS" ,"J" ,"El" ]
+}
