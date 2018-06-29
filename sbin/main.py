@@ -130,12 +130,12 @@ def check_command_options():
             print >> sys.stderr, '"-i or --input-csv-file" option required'
             print_common_msg()
 
-    if 'WithLossFile' in globals():
+    if WithLossFile:
         if command != 'train':
             print >> sys.stderr, '"-L or --with-loss-file" can be used with command "train"'
             print_common_msg()
 
-    if 'FineTuneJsonFile' in globals():
+    if FineTuneJsonFile:
         if command != 'train':
             print >> sys.stderr, '"--fine-tune-json-file" can be used with command "train"'
             print_common_msg()
