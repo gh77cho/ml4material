@@ -261,7 +261,7 @@ class Model():
 #            print '%f'%eY[i]
         with open('%s.prediction.csv'%self.conf['name'], 'w') as f:
             for y in eY:
-                print >> f, y
+                print >> f, y[0]
 
         sess.close()
 
