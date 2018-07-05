@@ -129,7 +129,8 @@ class Model():
                     index += batch_size
 
                     _, loss = self.sess.run([self.d_updates, self.loss],
-                            feed_dict={self.data: np.asarray(train_data[f:t]), self.Y: train_Y[f:t]})
+                            feed_dict={self.data: train_data[f:t], self.Y: train_Y[f:t]})
+#                            feed_dict={self.data: np.asarray(train_data[f:t]), self.Y: train_Y[f:t]})
                     sum_loss += loss
 
                     if False:
@@ -188,7 +189,7 @@ class Model():
         f = open(model_file, 'w')
         print >> f, 'id,Y,eY'
         for i, y in enumerate(sorted(data)):
-            print >> f, '%d,%f,%f' % (i,y[0], y[1])
+            print >> f, '%d,%s,%f,%f' % (i,str(all_data[i]), y[0], y[1])
         f.close()
 
     def format(self, v):
@@ -255,8 +256,12 @@ class Model():
         f.close()
         eY = sess.run(self.y[-1], feed_dict={self.data: data})
 
-        for i, f in enumerate(data):
-            print 'Features=%s\tEstimate=%f'%(f, eY[i])
+#        for i, f in enumerate(data):
+#            print 'Features=%s\tEstimate=%f'%(f, eY[i])
+#            print '%f'%eY[i]
+        with open('%s.prediction.csv'%self.conf['name'], 'w') as f:
+            for y in eY:
+                print >> f, y
 
         sess.close()
 
