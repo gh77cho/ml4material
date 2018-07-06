@@ -105,7 +105,7 @@ class Model():
         prev_loss = 0.
 
         if self.loss_file:
-            f_loss = open(self.loss_file, 'w')
+            f_loss = open(self.loss_file, 'a')
 
         for epoch in range(100):
             print >> sys.stderr, 'learning epoch - %d' % epoch
@@ -152,12 +152,19 @@ class Model():
                 if self.conf['test-ratio'] == 0.:
                     print >> sys.stderr, 'train loss : %f' % avg_loss
                     if self.loss_file:
-                        print >> f_loss, '%f' % avg_loss
+                        if epoch > 0 or d_epoch > 0:
+                            f_loss.write(' %f' % avg_loss)
+                        else:
+                            f_loss.write('%f' % avg_loss)
                 else:
                     test_loss = self.sess.run(self.loss, feed_dict={self.data: np.asarray(test_data), self.Y: np.asarray(test_Y)})
                     print >> sys.stderr, 'train loss : %f\ttest loss : %f' % (avg_loss, test_loss)
                     if self.loss_file:
                         print >> f_loss, '%f,%f' % (avg_loss, test_loss)
+                        if epoch > 0 or d_epoch > 0:
+                            f_loss.write(' %f,%f' % (avg_loss, test_loss))
+                        else:
+                            f_loss.write('%f,%f' % (avg_loss, test_loss))
 
                 if self.UserStop:
                     break
@@ -169,6 +176,7 @@ class Model():
                 break
 
         if self.loss_file:
+            f_loss.write('\n')
             f_loss.close()
 
         print 'EPOCH: %d - %d' % (epoch, d_epoch)
@@ -260,9 +268,11 @@ class Model():
 #            print 'Features=%s\tEstimate=%f'%(f, eY[i])
 #            print '%f'%eY[i]
         with open('%s.prediction.csv'%self.conf['name'], 'a') as f:
-            print >> f, '[BEGIN]'
-            for y in eY:
-                print >> f, y[0]
+            for i, y in enumerate(eY):
+                if i > 0:
+                    f.write(' ')
+                f.write(y[0])
+            f.write('\n')
                 print y[0]
 
         sess.close()
