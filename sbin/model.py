@@ -161,7 +161,6 @@ class Model():
                     test_loss = self.sess.run(self.loss, feed_dict={self.data: np.asarray(test_data), self.Y: np.asarray(test_Y)})
                     print >> sys.stderr, 'train loss : %f\ttest loss : %f' % (avg_loss, test_loss)
                     if self.loss_file:
-                        print >> f_loss, '%f,%f' % (avg_loss, test_loss)
                         if epoch > 0 or d_epoch > 0:
                             f_loss_tr.write(',%f' % avg_loss)
                             f_loss_te.write(',%f' % test_loss)
