@@ -259,9 +259,11 @@ class Model():
 #        for i, f in enumerate(data):
 #            print 'Features=%s\tEstimate=%f'%(f, eY[i])
 #            print '%f'%eY[i]
-        with open('%s.prediction.csv'%self.conf['name'], 'w') as f:
+        with open('%s.prediction.csv'%self.conf['name'], 'a') as f:
+            print >> f, '[BEGIN]'
             for y in eY:
                 print >> f, y[0]
+                print y[0]
 
         sess.close()
 
