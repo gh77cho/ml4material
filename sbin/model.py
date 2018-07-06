@@ -269,11 +269,11 @@ class Model():
 #            print '%f'%eY[i]
         with open('%s.prediction.csv'%self.conf['name'], 'a') as f:
             for i, y in enumerate(eY):
+                print y[0]
                 if i > 0:
                     f.write(' ')
                 f.write(y[0])
             f.write('\n')
-                print y[0]
 
         sess.close()
 
