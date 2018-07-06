@@ -272,7 +272,7 @@ class Model():
                 print y[0]
                 if i > 0:
                     f.write(' ')
-                f.write(y[0])
+                f.write('%f'%y[0])
             f.write('\n')
 
         sess.close()
