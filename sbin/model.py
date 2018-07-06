@@ -105,7 +105,8 @@ class Model():
         prev_loss = 0.
 
         if self.loss_file:
-            f_loss = open(self.loss_file, 'a')
+            f_loss_tr = open(self.loss_file+'.train', 'a')
+            f_loss_te = open(self.loss_file+'.test', 'a')
 
         for epoch in range(100):
             print >> sys.stderr, 'learning epoch - %d' % epoch
@@ -153,18 +154,20 @@ class Model():
                     print >> sys.stderr, 'train loss : %f' % avg_loss
                     if self.loss_file:
                         if epoch > 0 or d_epoch > 0:
-                            f_loss.write(' %f' % avg_loss)
+                            f_loss_tr.write(',%f' % avg_loss)
                         else:
-                            f_loss.write('%f' % avg_loss)
+                            f_loss_tr.write('%f' % avg_loss)
                 else:
                     test_loss = self.sess.run(self.loss, feed_dict={self.data: np.asarray(test_data), self.Y: np.asarray(test_Y)})
                     print >> sys.stderr, 'train loss : %f\ttest loss : %f' % (avg_loss, test_loss)
                     if self.loss_file:
                         print >> f_loss, '%f,%f' % (avg_loss, test_loss)
                         if epoch > 0 or d_epoch > 0:
-                            f_loss.write(' %f,%f' % (avg_loss, test_loss))
+                            f_loss_tr.write(',%f' % avg_loss)
+                            f_loss_te.write(',%f' % test_loss)
                         else:
-                            f_loss.write('%f,%f' % (avg_loss, test_loss))
+                            f_loss_tr.write('%f' % avg_loss)
+                            f_loss_te.write('%f' % test_loss)
 
                 if self.UserStop:
                     break
@@ -176,8 +179,10 @@ class Model():
                 break
 
         if self.loss_file:
-            f_loss.write('\n')
-            f_loss.close()
+            f_loss_tr.write('\n')
+            f_loss_te.write('\n')
+            f_loss_tr.close()
+            f_loss_te.close()
 
         print 'EPOCH: %d - %d' % (epoch, d_epoch)
 
@@ -271,7 +276,7 @@ class Model():
             for i, y in enumerate(eY):
                 print y[0]
                 if i > 0:
-                    f.write(' ')
+                    f.write(',')
                 f.write('%f'%y[0])
             f.write('\n')
 
