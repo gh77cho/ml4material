@@ -14,6 +14,7 @@ class ML:
     feature_name = None
     conf = None
     fine_tune_param = None
+    loss_file = None
 
     def get_feature_name(self):
         header = linecache.getline(self.input_file, 1).strip().split(',')

@@ -193,15 +193,15 @@ class Model():
         if self.conf['hidden-layer'] == 0:
             for i, y in enumerate(pred[0]):
                 Y = all_Y[i]
-                data.append([Y, y])
+                data.append([Y, y, all_data[i]])
         else:
             for i, y in enumerate(pred):
                 Y = all_Y[i]
-                data.append([Y, y])
+                data.append([Y, y, all_data[i]])
         f = open(model_file, 'w')
-        print >> f, 'id,Y,eY'
+        print >> f, 'id,feature,Y,eY'
         for i, y in enumerate(sorted(data)):
-            print >> f, '%d,%s,%f,%f' % (i,str(all_data[i]), y[0], y[1])
+            print >> f, '%d,%s,%f,%f' % (i,str(y[2]), y[0], y[1])
         f.close()
 
     def format(self, v):
